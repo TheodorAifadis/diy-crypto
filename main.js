@@ -1,19 +1,33 @@
-// Refaktorisera = städa, omoranisera kod
 
-function caesarEncrypt(msg) {
+function caesarEncrypt(msg, shift) {
 
-    // 1. Översätta varje tecken till ett nummer
     const charCodes = []
     for (let i = 0; i < msg.length; i++) {
         charCodes.push(msg[i].charCodeAt(0))
     }
 
-    // 2. Shifta det numret
     for (let i = 0; i < charCodes.length; i++) {
-        charCodes[i] = charCodes[i] + 1
+        charCodes[i] = charCodes[i] + shift
     }
 
-    // 3. Översätt tillbaka från charCode till string
+    let result = ''
+    for (let i = 0; i < charCodes.length; i++) {
+        result = result + String.fromCharCode(charCodes[i])
+    }
+
+    return result
+}
+
+function caesarDecrypt(encryptedMsg, shift) {
+    const charCodes = []
+    for (let i = 0; i < encryptedMsg.length; i++) {
+        charCodes.push(encryptedMsg[i].charCodeAt(0))
+    }
+
+    for (let i = 0; i < charCodes.length; i++) {
+        charCodes[i] = charCodes[i] - shift
+    }
+
     let result = ''
     for (let i = 0; i < charCodes.length; i++) {
         result = result + String.fromCharCode(charCodes[i])
@@ -23,6 +37,7 @@ function caesarEncrypt(msg) {
 }
 
 const secretMessage = 'RETREATTOMMORROW'
-const encryptedMessage = caesarEncrypt(secretMessage)
+const encryptedMessage = caesarEncrypt(secretMessage, 5)
+const decryptedMessage = caesarDecrypt(encryptedMessage, 5)
 
-console.log(secretMessage, encryptedMessage)
+console.log(secretMessage, encryptedMessage, decryptedMessage)
